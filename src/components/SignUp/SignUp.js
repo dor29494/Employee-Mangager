@@ -95,7 +95,6 @@ const SignUp = ({db,setCurrentUser}) => {
 
   const handleSubmit = () => {
     const { password,email,firstName,lastName,password1} = authObject;
-    console.log('here')
     let signUperrors = {...errors}
     if (validateEmail(email) === false) {
       signUperrors.email = "The email is not validate"
