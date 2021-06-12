@@ -95,6 +95,7 @@ const SignUp = ({db,setCurrentUser}) => {
 
   const handleSubmit = () => {
     const { password,email,firstName,lastName,password1} = authObject;
+    console.log('here')
     let signUperrors = {...errors}
     if (validateEmail(email) === false) {
       signUperrors.email = "The email is not validate"
@@ -132,15 +133,15 @@ if(signUperrors.firstName !== null
       .add({email: email,firstName: firstName,lastName: lastName})
       .then((docRef) => {
         docRef.update({id: docRef.id});
-        history.push("/login")
+        afterLoginFn(email,firstName,lastName)
       })
       .catch((error) => {
-        console.error("Error adding employee info:", error);
+        setErrors((prev) => ({ ...prev, loginCatch: error.message }))
       });
       // ...
     })
     .catch((error) => {
-     console.error(error.message)
+      setErrors((prev) => ({ ...prev, loginCatch: error.message }))
       // ..
     });}};
 
@@ -183,7 +184,7 @@ if(signUperrors.firstName !== null
               <Typography varaint="body1">Presonal Details</Typography>
               <br/>
               {signUpInputField.map((input,key)=>(
-                <>
+                <React.Fragment key={key}>
                  { errors[`${lowerFirstLetter(input).replace(/ +/g, "")}`] &&
                     <Alert severity="error">
               {errors[`${lowerFirstLetter(input).replace(/ +/g, "")}`]}
@@ -198,7 +199,7 @@ if(signUperrors.firstName !== null
              variant="outlined"
              size="medium"/>
       <br />
-      </>))}
+      </React.Fragment>))}
             </Grid>
             <Grid item xs={12}>
            <Typography varaint="body1">Password</Typography>
@@ -248,7 +249,7 @@ if(signUperrors.firstName !== null
         </Card>
       </Grid>
       <Snackbar
-        open={errors.loginCatch}
+        open={!!errors.loginCatch}
         autoHideDuration={3000}
         onClose={() =>
           setErrors((prev) => ({ ...prev, loginCatch: undefined }))
