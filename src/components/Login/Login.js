@@ -91,7 +91,6 @@ const Login = ({setCurrentUser}) => {
     history.push("/list")
   }
   const handleSubmit = () => {
-    console.log('in handlesubmit',authObject)
     const { password, email } = authObject;
     if (validateEmail(email) && password.length > 0 && password.length < 16) {
       fireBase

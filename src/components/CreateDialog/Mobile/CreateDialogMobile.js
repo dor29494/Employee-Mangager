@@ -48,31 +48,24 @@ const CreateDialogMobile = ({createEmployeeFn,dialogHandleClose,editEmployeeFn})
   const handleSubmit = ()=>{
     let errorsClone = {...errorsDefault}
     // Clone for adding the unique id that firestore create for me
-    console.log(!(employeeInfo.firstName !== null))
     if(!(employeeInfo.firstName !== null) || !isNumberBetween(employeeInfo.firstName.length,1,12)){
         errorsClone.firstName = "First name must be between 2 characters to 13 characters"
-        console.log('prbolem with firstname',employeeInfo.firstName)
     }
     if(!(employeeInfo.lastName !== null) || !isNumberBetween(employeeInfo.lastName.length,1,12)){
         errorsClone.lastName = "Last name must be between 2 characters to 13 characters"
-        console.log('prbolem with lastname')
 
     }
     if(!(employeeInfo.role !== null) ||!isNumberBetween(employeeInfo.role.length,1,16 )){
         errorsClone.role = "Role must be between 1 characters to 16 characters"
-        console.log('prbolem with role')
 
     }
     if(!(employeeInfo.address !== null) ||!isNumberBetween(employeeInfo.address.length,4,40)){
         errorsClone.address = "Last name must be between 4 characters to 40 characters"
-        console.log('prbolem with address')
 
     }
     if(isNaN(employeeInfo.phone) || !isNumberBetween(employeeInfo?.phone?.toString().length,9,10)){
         errorsClone.phone = "phone is not valid"
-        console.log('prbolem with phone')
     }
-    console.log('here',errorsClone)
 
     if (
           errorsClone.phone !== null 
